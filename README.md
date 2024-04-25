@@ -27,7 +27,6 @@ And, last but not least, a special thank to my friend Fabio (https://github.com/
 ![ScreenShot](https://raw.githubusercontent.com/aotta/SD-1000/main/Pictures/sega3.jpg)
 ![ScreenShot](https://raw.githubusercontent.com/aotta/SD-1000/main/Pictures/sega4.jpg)
 ![ScreenShot](https://raw.githubusercontent.com/aotta/SD-1000/main/Pictures/sega5.jpg)
-![ScreenShot](https://raw.githubusercontent.com/aotta/SD-1000/main/Pictures/sega6.jpg)
 ![ScreenShot](https://raw.githubusercontent.com/aotta/SD-1000/main/Pictures/sega7.jpg)
 
 ## To DO
