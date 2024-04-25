@@ -1,0 +1,6 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "SD1000")(type "KiCad")(uri "C:/Users/Andrea/Documents/Retrocomputer/SEGA/SG-1000/SD1000")(options "")(descr ""))
+  (lib (name "Pico_C")(type "KiCad")(uri "C:/Users/Andrea/Documents/Retrocomputer/SEGA/SG-1000/project-piCo-main/Pico C/Pico_C.pretty")(options "")(descr ""))
+  (lib (name "SoggyCartridge")(type "KiCad")(uri "${KIPRJMOD}/SoggyCartridge.pretty")(options "")(descr ""))
+)

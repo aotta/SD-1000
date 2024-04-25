@@ -1,0 +1,82 @@
+
+(rules PCB SD-10005v
+  (snap_angle 
+    fortyfive_degree
+  )
+  (autoroute_settings
+    (fanout off)
+    (autoroute on)
+    (postroute on)
+    (vias on)
+    (via_costs 50)
+    (plane_via_costs 5)
+    (start_ripup_costs 100)
+    (start_pass_no 254)
+    (layer_rule F.Cu
+      (active on)
+      (preferred_direction vertical)
+      (preferred_direction_trace_costs 1.0)
+      (against_preferred_direction_trace_costs 2.3)
+    )
+    (layer_rule B.Cu
+      (active on)
+      (preferred_direction horizontal)
+      (preferred_direction_trace_costs 1.0)
+      (against_preferred_direction_trace_costs 1.8)
+    )
+  )
+  (rule
+    (width 250.0)
+    (clearance 200.0)
+    (clearance 125.0 (type smd_to_turn_gap))
+    (clearance 50.0 (type smd))
+    (clearance 200.0 (type "kicad_default"))
+  )
+  (padstack "Via[0-1]_800:400_um"
+    (shape
+      (circle F.Cu 800.0 0.0 0.0)
+    )
+    (shape
+      (circle B.Cu 800.0 0.0 0.0)
+    )
+    (attach off)
+  )
+  (via 
+    "Via[0-1]_800:400_um" "Via[0-1]_800:400_um" default
+  )
+  (via 
+    "Via[0-1]_800:400_um-kicad_default" "Via[0-1]_800:400_um" "kicad_default"
+  )
+  (via_rule
+    default "Via[0-1]_800:400_um"
+  )
+  (via_rule
+    "kicad_default" "Via[0-1]_800:400_um-kicad_default"
+  )
+  (class default
+    (clearance_class default)
+    (via_rule default)
+    (rule
+      (width 250.0)
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+  (class "kicad_default"
+    A0 A1 A2 A3 A4 A5 A6 A7
+    A8 A9 A10 A11 A12 A13 D0 D1
+    D2 D3 D4 D5 D6 D7 ~{MEMR} ~{MEMW}
+    ~{IOR} A14 A15 ~{CEROM2} "unconnected-(CON1-N.C.-PadB9)" "unconnected-(CON1-CON-PadB11)" "unconnected-(CON1-~{RAS1}-PadB12)" "unconnected-(CON1-~{CAS1}-PadB13)"
+    +5V "unconnected-(CON1-RAMA7-PadB14)" "unconnected-(CON1-~{RAS2}-PadB15)" GND "unconnected-(CON1-~{CAS2}-PadB16)" "unconnected-(CON1-~{MUX}-PadB17)" "unconnected-(CON1-N.C.-PadB20)" ~{MREQ}
+    ~{DSRAM} "Net-(D1-K)" RST "unconnected-(J2-Pin_4-Pad4)" "unconnected-(J2-Pin_1-Pad1)" "unconnected-(CON1-~{IOW}-PadB8)" "unconnected-(J2-Pin_5-Pad5)"
+    (clearance_class "kicad_default")
+    (via_rule "kicad_default")
+    (rule
+      (width 250.0)
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+)
