@@ -30,4 +30,7 @@ And, last but not least, a special thank to my friend Fabio (https://github.com/
 ![ScreenShot](https://raw.githubusercontent.com/aotta/SD-1000/main/Pictures/sega6.jpg)
 ![ScreenShot](https://raw.githubusercontent.com/aotta/SD-1000/main/Pictures/sega7.jpg)
 
+## To DO
+A 3D printed cover... i'm working on it and i'll publish here when ready
+
 
