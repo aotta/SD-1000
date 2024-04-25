@@ -3,7 +3,7 @@ Sega flash multicart for SC-3000, SG-1000 and Mark III based on Pico Clone
 
 SD-1000 is a multicart DIY yourself based on cheap "purple" Raspberry Pi Pico clone.
 
-`#0969DA`**WARNING!** "purple" Pico has not the same pinout of original Raspberry "green" ones, you MUST use the clone or you may damage your hardware.
+**WARNING!** "purple" Pico has not the same pinout of original Raspberry "green" ones, you MUST use the clone or you may damage your hardware.
 
 ![ScreenShot](https://raw.githubusercontent.com/aotta/SD-1000/main/Pictures/sega0.jpg)
 
@@ -17,7 +17,11 @@ Even if the diode should protect your console, **DO NOT CONNECT PICO WHILE INSER
 
 ## Credits
 I have to thanks some friends for helping me in completing this projects in few time:
-Thanks @github/robinhedwards
+
+Thank to Robin Robin Edwards and his A8PicoCart (https://github.com/robinhedwards/A8PicoCart), i found very smart his way to manage the Flash RAM and the USB updates, so i admit i took large parte of his code for it!.
+I used also the new and fantastic CVBasic for writing menu and file selector in Sega, thank to Oscar Toledo (https://nanochess.org/) for creating it and supporting me in an issue with SC-3000.
+And, last but not least, a special thank to my friend Fabio (https://github.com/fabiodl) that from Japan leaded me out of a couple of tricky steps.
+
 
 ![ScreenShot](https://raw.githubusercontent.com/aotta/SD-1000/main/Pictures/sega2.jpg)
 ![ScreenShot](https://raw.githubusercontent.com/aotta/SD-1000/main/Pictures/sega3.jpg)
