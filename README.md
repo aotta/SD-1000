@@ -19,7 +19,9 @@ Even if the diode should protect your console, **DO NOT CONNECT PICO WHILE INSER
 I have to thanks some friends for helping me in completing this projects in few time:
 
 Thank to Robin Robin Edwards and his A8PicoCart (https://github.com/robinhedwards/A8PicoCart), i found very smart his way to manage the Flash RAM and the USB updates, so i admit i took large parte of his code for it!.
+
 I used also the new and fantastic CVBasic for writing menu and file selector in Sega, thank to Oscar Toledo (https://nanochess.org/) for creating it and supporting me in an issue with SC-3000.
+
 And, last but not least, a special thank to my friend Fabio (https://github.com/fabiodl) that from Japan leaded me out of a couple of tricky steps.
 
 
