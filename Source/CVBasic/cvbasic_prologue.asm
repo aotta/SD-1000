@@ -29,8 +29,10 @@ PSG:    equ $ff-$80*SG1000
 JOY1:   equ $fc-$20*SG1000
 JOY2:   equ $ff-$22*SG1000
 
+;BASE_RAM: equ $e000-$7000*COLECO-$2000*SG1000+$0c00*SGM
 BASE_RAM: equ $e000-$7000*COLECO-$5000*SG1000+$0c00*SGM
 
+;STACK:	equ $f000-$7c00*COLECO-$2c00*SG1000+$0c00*SGM
 STACK:	equ $f000-$7c00*COLECO-$5c00*SG1000+$0c00*SGM
 
     if COLECO
@@ -143,8 +145,7 @@ FILVRM:
 	pop af
 	ret
 
-LDIRVM:
-        EX DE,HL
+LDIRVM: EX DE,HL
         CALL SETWRT
         EX DE,HL
         DEC BC
@@ -153,8 +154,12 @@ LDIRVM:
         LD B,C
         INC A
         LD C,VDP
-.1:     OUTI
-        JP NZ,.1
+.1:     
+   if SG1000
+        NOP        ; 4 t-states (this is required to wait 29 t-states minimum)
+    endif
+        OUTI        ; 16 t-states (18 on MSX/Coleco)
+        JP NZ,.1  ; 10 t-states (11 on MSX/Coleco)OUTI
         DEC A
         JP NZ,.1
         RET
