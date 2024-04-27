@@ -14,6 +14,7 @@ After flashed with firmware, and every time you have to change your ROMS reposit
 Even if the diode should protect your console, **DO NOT CONNECT PICO WHILE INSERTED IN A POWERED ON CONSOLE!**
 
 ![ScreenShot](https://raw.githubusercontent.com/aotta/SD-1000/main/Pictures/sega1.jpg)
+![ScreenShot](https://raw.githubusercontent.com/aotta/SD-1000/main/Pictures/sega9.jpg)
 
 ## Credits
 I have to thanks some friends for helping me in completing this projects in few time:
