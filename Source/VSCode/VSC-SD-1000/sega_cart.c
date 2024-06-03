@@ -415,7 +415,7 @@ int load_file(char *filename) {
 	strcpy(errorBuf, "Can't read file");
 
 	unsigned char *dst = &files[0];
-	int bytes_to_read = 40 * 1024;
+	int bytes_to_read = 64 * 1024;
 	// read the file to SRAM
 	if (f_read(&fil, dst, bytes_to_read, &br) != FR_OK) {
 		goto closefile;
