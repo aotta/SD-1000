@@ -1,6 +1,6 @@
-Designator,Val,Package,Mid X,Mid Y,Rotation,Layer
-CON1,SC3000-Edge,CartridgeEdge,107.89,-116.9,0.0,top
-D1,Diode ,D_DO-35_SOD27_P7.62mm_Horizontal,82.3,-36.9,0.0,top
-J1,Conn_01x20,PinSocket_1x20_P2.54mm_Vertical,100.65,-60.8,90.0,top
-J2,Conn_01x20,PinSocket_1x20_P2.54mm_Vertical,100.63,-43.0,90.0,top
-SW1,SW_Push,SW_PUSH_6mm,134.75,-37.45,0.0,top
+﻿Designator,Mid X,Mid Y,Rotation,Layer
+CON1,74.9,-111.4,0.0,top
+D1,82.169,-36.83,0.0,top
+J1,100.62,-60.825,90.0,top
+J2,100.6,-43.025,90.0,top
+SW1,134.75,-37.45,0.0,top
