@@ -12,6 +12,7 @@
 //   Edit myboard.h depending on the type of flash memory on the pico clone//
 //
 //   v. 1.0 2024-03-26 : Initial version for Pi Pico 
+//   v. 1.01 2026-07-2 : Fix for Ninja Princess & Golgo 13
 //
 */
 
@@ -27,6 +28,7 @@
 #include "pico/divider.h"
 #include "hardware/flash.h"
 #include "hardware/sync.h"
+#include "hardware/clocks.h"
 
 
 #include "rom.h"
@@ -67,6 +69,8 @@
 #define CEROM2_PIN  27
 #define DSRAM_PIN  28 
 #define IOR_PIN  29 
+#define DOUTE_PIN 30 
+
 
 // Pico pin usage masks
 
@@ -101,12 +105,13 @@
 #define CEROM2_PIN_MASK 0x08000000L
 #define DSRAM_PIN_MASK  0x10000000L
 #define IOR_PIN_MASK    0x20000000L
+#define DOUTE_PIN_MASK  0x40000000L
 
 // Aggregate Pico pin usage masks
 #define ALL_GPIO_MASK  	0x3FFFFFFFL
 #define BUS_PIN_MASK    0x0000FFFFL
 #define DATA_PIN_MASK   0x00FF0000L
-#define FLAG_MASK       0x2F000000L
+#define FLAG_MASK       0x6F000000L
 #define ROM_MASK ( MREQ_PIN_MASK  ) 
 #define ALWAYS_IN_MASK  (BUS_PIN_MASK | FLAG_MASK)
 #define ALWAYS_OUT_MASK (DATA_PIN_MASK | DOUTE_PIN_MASK)
@@ -128,6 +133,7 @@ int fileda=0,filea=0;
 volatile char cmd=0;
 char errorBuf[40];
 bool cmd_executing=false;
+volatile bool in_menu = true;
 
 
 /*
@@ -139,36 +145,42 @@ bool cmd_executing=false;
 */
 
 void __not_in_flash_func(core1_main()) {
-
     uint32_t addr;
-    char dataWrite=0;
+    char dataWrite = 0;
     uint32_t pins;
 
-	multicore_lockout_victim_init();	
-
-   
+    multicore_lockout_victim_init();	
     gpio_set_dir_in_masked(ALWAYS_IN_MASK);
-    // Initial conditions
     SET_DATA_MODE_IN;
    
-  while (1)
+    while (1)
   {
-    while ((pins=gpio_get_all()) & (MREQ_PIN_MASK)); //memr = b5 mreq=b10
-	pins=gpio_get_all(); // re-read for SG-1000;
-    addr = pins & BUS_PIN_MASK;
-      if (!(pins & MEMR_PIN_MASK)) {
-            SET_DATA_MODE_OUT;
-            gpio_put_masked(DATA_PIN_MASK,ROM[addr]<<16);
-         //   while (!(gpio_get_all() & MEMR_PIN_MASK));
-            SET_DATA_MODE_IN;
-          } else if (!(pins & (MEMW_PIN_MASK))) {        
-            dataWrite=((gpio_get_all() & DATA_PIN_MASK) >> 16);
-            ROM[addr]=dataWrite;
-           // while (!(gpio_get_all() & MEMW_PIN_MASK));
-          }
-      } 
-} 
+    while (((pins = gpio_get_all()) & MREQ_PIN_MASK) || !(pins & IOR_PIN_MASK)); 
     
+    // pins = gpio_get_all(); 
+    addr = pins & BUS_PIN_MASK;
+
+    if (!(pins & MEMR_PIN_MASK)) {
+        SET_DATA_MODE_OUT;
+		gpio_put_masked(DATA_PIN_MASK, ROM[addr] << 16);
+        
+        // Sincronizzazione: aspetta la fine del ciclo di lettura dello Z80
+        while (!(gpio_get_all() & MEMR_PIN_MASK));
+        SET_DATA_MODE_IN;
+    } 
+    else if (!(pins & MEMW_PIN_MASK)) {        
+		if ((1)) { //piccolo ritardo introdotto per fixing Golgo 13 & Ninja Princess
+	    	dataWrite = ((gpio_get_all() & DATA_PIN_MASK) >> 16);
+        	ROM[addr] = dataWrite;
+        	// Sincronizzazione: aspetta la fine del ciclo di scrittura dello Z80
+			while (!(gpio_get_all() & MEMW_PIN_MASK)); 
+		}
+	}
+  }
+
+}
+
+
 ////////////////////////////////////////////////////////////////////////////////////
 //                     MENU Reset
 ////////////////////////////////////////////////////////////////////////////////////    
@@ -544,9 +556,13 @@ void LoadGame(){
   		reset();
         load_file(path);  // load rom in files[]
         //load_file("/B/Bank Panic (JP).sg");
+	
   		reset(); 
 		memcpy(ROM,files,sizeof(ROM));
-  		reset(); 
+		 in_menu = false; // <--- IL GIOCO PARTE, IL PICO ATTIVA IL FILTRO RIGIDO SU CEROM2!
+
+		 reset(); 
+
        while(1);    
   }
   
@@ -564,16 +580,21 @@ void sega_cart_main()
  
  printf("Sega_cart_main\n");
 
-	// overclocking isn't necessary for most functions - but XEGS carts weren't working without it
-	// I guess we might as well have it on all the time.
-  set_sys_clock_khz(250000, true);
-  
+vreg_set_voltage(VREG_VOLTAGE_1_25);
+
+sleep_us(100);
+set_sys_clock_khz(250000, true);
+
+       
 
     gpio_init_mask(ALL_GPIO_MASK);
   
     gpio_init(DSRAM_PIN);
     gpio_set_dir(DSRAM_PIN, GPIO_OUT);
     gpio_put(DSRAM_PIN, true);    
+	// Esempio nel setup dei GPIO (es. se CON_PIN è il numero del GPIO associato a CON/B11)
+
+	
 
   stdio_init_all();   // for serial output, via printf()
   printf("Start\n");

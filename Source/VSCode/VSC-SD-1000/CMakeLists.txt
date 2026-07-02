@@ -1,3 +1,17 @@
+# == DO NOT EDIT THE FOLLOWING LINES for the Raspberry Pi Pico VS Code Extension to work ==
+if(WIN32)
+    set(USERHOME $ENV{USERPROFILE})
+else()
+    set(USERHOME $ENV{HOME})
+endif()
+set(sdkVersion 2.2.0)
+set(toolchainVersion 15_2_Rel1)
+set(picotoolVersion 2.2.0-a4)
+set(picoVscode ${USERHOME}/.pico-sdk/cmake/pico-vscode.cmake)
+if (EXISTS ${picoVscode})
+    include(${picoVscode})
+endif()
+# ====================================================================================
 cmake_minimum_required(VERSION 3.13)
 
 # initialize the SDK based on PICO_SDK_PATH
@@ -17,6 +31,9 @@ add_executable(SD1000_cart)
 # 16megs of flash on purple pico clones
 target_compile_definitions(SD1000_cart PRIVATE
     PICO_FLASH_SIZE_BYTES=16777216
+    PICO_FLASH_SPI_CLKDIV=4
+    CFG_TUSB_RHPORT0_MODE=OPT_MODE_DEVICE
+    CFG_TUSB_RHPORT0=0
 )
 
 target_compile_options(SD1000_cart PRIVATE "-Os")
