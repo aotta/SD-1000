@@ -16,6 +16,9 @@ Even if the diode should protect your console, **DO NOT CONNECT PICO WHILE INSER
 
 ![ScreenShot](https://raw.githubusercontent.com/aotta/SD-1000/main/Pictures/sega1.jpg)
 
+## NOTE:
+I added v. 1.01 which fixes Ninja Princess and Golgo for SC-3000, and last v.1.02 that works with SG-1000 and Mark III. If you have only the SC-3000, i suggest you use the 1.01 FW
+
 ## Credits
 I have to thanks some friends for helping me in completing this projects in few time:
 
