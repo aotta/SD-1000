@@ -155,24 +155,25 @@ void __not_in_flash_func(core1_main()) {
    
     while (1)
   {
-    while (((pins = gpio_get_all()) & MREQ_PIN_MASK) || !(pins & IOR_PIN_MASK)); 
-    
-    // pins = gpio_get_all(); 
+    while (((pins = gpio_get_all()) & MREQ_PIN_MASK) ); // || !(pins & IOR_PIN_MASK)); removed for compatibility with SG-1000, which doesn't have IOR
+   
+    pins = gpio_get_all();   // to keep for SG-1000 compatibility, we read the pins again after the wait for MREQ to go low
+	
     addr = pins & BUS_PIN_MASK;
 
     if (!(pins & MEMR_PIN_MASK)) {
         SET_DATA_MODE_OUT;
 		gpio_put_masked(DATA_PIN_MASK, ROM[addr] << 16);
         
-        // Sincronizzazione: aspetta la fine del ciclo di lettura dello Z80
-        while (!(gpio_get_all() & MEMR_PIN_MASK));
+        // Sync: wait end of read from CPU Z80
+        //while (!(gpio_get_all() & MEMR_PIN_MASK));  // removed for compatibility with Mark III
         SET_DATA_MODE_IN;
     } 
     else if (!(pins & MEMW_PIN_MASK)) {        
-		if ((1)) { //piccolo ritardo introdotto per fixing Golgo 13 & Ninja Princess
+		if ((1)) { //little delay to fix Golgo 13 & Ninja Princess
 	    	dataWrite = ((gpio_get_all() & DATA_PIN_MASK) >> 16);
         	ROM[addr] = dataWrite;
-        	// Sincronizzazione: aspetta la fine del ciclo di scrittura dello Z80
+        	// Sync: wait end of write from CPU Z80
 			while (!(gpio_get_all() & MEMW_PIN_MASK)); 
 		}
 	}
@@ -582,7 +583,7 @@ void sega_cart_main()
 
 vreg_set_voltage(VREG_VOLTAGE_1_25);
 
-sleep_us(100);
+//sleep_us(100);
 set_sys_clock_khz(250000, true);
 
        
