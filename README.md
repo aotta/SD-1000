@@ -18,6 +18,7 @@ Even if the diode should protect your console, **DO NOT CONNECT PICO WHILE INSER
 
 ## NOTE:
 I added v. 1.01 which fixes Ninja Princess and Golgo for SC-3000, and last v.1.02 that works with SG-1000 and Mark III. If you have only the SC-3000, i suggest you use the 1.01 FW
+
 18/09/26 I moved to Arduino IDE, and made v.1.03 that should be more compatible with games but Mark III no more supported. WARNING: if you flash this version from a previous one, you must RE-FORMAT flash and re-upload games
 
 ## Credits
